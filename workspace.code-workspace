@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{ "path": "." },
+		{ "path": "backend", "name": "Backend (NestJS)" },
+		{ "path": "frontend", "name": "Frontend (React)" }
+	],
+	"settings": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"typescript.preferences.importModuleSpecifier": "relative"
+	}
+}

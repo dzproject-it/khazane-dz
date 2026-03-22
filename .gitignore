@@ -1,0 +1,23 @@
+# ─── Dépendances ──────────────────────────
+node_modules/
+
+# ─── Build outputs (code installable) ─────
+dist/
+dist-desktop/
+build/
+backend/dist/
+backend/frontend-dist/
+desktop/pgsql/
+
+# ─── Environnement ────────────────────────
+.env
+*.env.local
+
+# ─── Logs & OS ─────────────────────────────
+*.log
+.DS_Store
+Thumbs.db
+
+# ─── Tests & IDE ───────────────────────────
+coverage/
+.turbo/

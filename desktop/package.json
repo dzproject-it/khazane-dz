@@ -1,0 +1,80 @@
+{
+  "name": "khazane-desktop",
+  "version": "0.1.0",
+  "description": "Khazane-DZ — Gestion de Stock Intelligente (Application Desktop)",
+  "main": "main.js",
+  "author": "Khazane-DZ",
+  "license": "PRIVATE",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "electron-log": "^5.1.7",
+    "get-port": "^5.1.1"
+  },
+  "devDependencies": {
+    "electron": "^30.1.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "dz.khazane.desktop",
+    "productName": "Khazane-DZ",
+    "copyright": "Copyright © 2026 Khazane-DZ",
+    "directories": {
+      "output": "../dist/desktop"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "splash.html",
+      "pgManager.js",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../backend/dist",
+        "to": "backend/dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../backend/node_modules",
+        "to": "backend/node_modules",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../backend/prisma",
+        "to": "backend/prisma",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../backend/frontend-dist",
+        "to": "backend/frontend-dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "./pgsql",
+        "to": "pgsql",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "installerHeaderIcon": "icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Khazane-DZ"
+    }
+  }
+}

@@ -372,3 +372,34 @@ model AuditLog {
   @@index([userId, createdAt])
   @@map("audit_logs")
 }
+
+// ─── LICENCES ────────────────────────────────────────────
+
+enum LicensePlan {
+  TRIAL
+  PRO
+  ENTERPRISE
+}
+
+enum LicenseStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+}
+
+model License {
+  id            String        @id @default(uuid())
+  licenseKey    String        @unique @map("license_key")
+  plan          LicensePlan   @default(TRIAL)
+  status        LicenseStatus @default(ACTIVE)
+  maxUsers      Int           @default(2) @map("max_users")
+  maxProducts   Int           @default(50) @map("max_products")
+  maxSites      Int           @default(1) @map("max_sites")
+  licensee      String?
+  activatedAt   DateTime?     @map("activated_at")
+  expiresAt     DateTime      @map("expires_at")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  @@map("licenses")
+}

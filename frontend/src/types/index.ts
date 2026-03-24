@@ -6,6 +6,7 @@ export interface User {
   name: string;
   role: UserRole;
   isActive: boolean;
+  createdAt?: string;
 }
 
 export interface AuthResponse {

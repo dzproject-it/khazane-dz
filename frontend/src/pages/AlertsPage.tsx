@@ -31,11 +31,11 @@ export function AlertsPage() {
           {alerts.map((alert) => {
             const conf = statusStyle[alert.status as AlertStatus];
             return (
-              <div key={alert.id} className="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${conf.color}`}>
+              <div key={alert.id} className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${conf.color}`}>
                   <conf.icon className="w-5 h-5" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="font-medium text-gray-900">
                     {alert.threshold?.product?.name || 'Produit'} — {t.alerts.stock} {alert.currentQty}
                   </p>
@@ -44,10 +44,12 @@ export function AlertsPage() {
                     {alert.threshold?.site && ` | ${t.alerts.site} ${alert.threshold.site.name}`}
                   </p>
                 </div>
-                <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${conf.color}`}>
-                  {t.alerts.statusLabels[alert.status as AlertStatus]}
-                </span>
-                <p className="text-xs text-gray-400">{new Date(alert.triggeredAt).toLocaleString(dateLocale)}</p>
+                <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+                  <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${conf.color}`}>
+                    {t.alerts.statusLabels[alert.status as AlertStatus]}
+                  </span>
+                  <p className="text-xs text-gray-400 whitespace-nowrap">{new Date(alert.triggeredAt).toLocaleString(dateLocale)}</p>
+                </div>
               </div>
             );
           })}

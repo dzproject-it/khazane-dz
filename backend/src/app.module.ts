@@ -18,6 +18,7 @@ import { ImportExportModule } from './import-export/import-export.module';
 import { SearchModule } from './search/search.module';
 import { SuppliersModule } from './suppliers/suppliers.module';
 import { ClientsModule } from './clients/clients.module';
+import { LicensingModule } from './licensing/licensing.module';
 
 const staticModules = process.env.SERVE_STATIC === 'true'
   ? [
@@ -48,6 +49,7 @@ const staticModules = process.env.SERVE_STATIC === 'true'
     SearchModule,
     SuppliersModule,
     ClientsModule,
+    LicensingModule,
   ],
 })
 export class AppModule {}

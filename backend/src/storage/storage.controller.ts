@@ -53,11 +53,31 @@ export class StorageController {
     return this.storageService.findZonesBySite(siteId);
   }
 
+  @Get('zones/:id')
+  @ApiOperation({ summary: 'Détail d\'une zone' })
+  findZone(@Param('id') id: string) {
+    return this.storageService.findZoneById(id);
+  }
+
   @Post('sites/:siteId/zones')
   @Roles('ADMIN', 'MANAGER')
   @ApiOperation({ summary: 'Créer une zone' })
   createZone(@Param('siteId') siteId: string, @Body() body: { code: string; name: string; type?: string }) {
     return this.storageService.createZone(siteId, body);
+  }
+
+  @Put('zones/:id')
+  @Roles('ADMIN', 'MANAGER')
+  @ApiOperation({ summary: 'Modifier une zone' })
+  updateZone(@Param('id') id: string, @Body() body: { code?: string; name?: string; type?: string }) {
+    return this.storageService.updateZone(id, body);
+  }
+
+  @Delete('zones/:id')
+  @Roles('ADMIN')
+  @ApiOperation({ summary: 'Supprimer une zone (soft-delete)' })
+  deleteZone(@Param('id') id: string) {
+    return this.storageService.deleteZone(id);
   }
 
   // ─── LOCATIONS ───────────────────
@@ -67,10 +87,30 @@ export class StorageController {
     return this.storageService.findLocationsByZone(zoneId);
   }
 
+  @Get('locations/:id')
+  @ApiOperation({ summary: 'Détail d\'un emplacement' })
+  findLocation(@Param('id') id: string) {
+    return this.storageService.findLocationById(id);
+  }
+
   @Post('zones/:zoneId/locations')
   @Roles('ADMIN', 'MANAGER')
   @ApiOperation({ summary: 'Créer un emplacement' })
   createLocation(@Param('zoneId') zoneId: string, @Body() body: { code: string; label?: string; maxCapacity?: number }) {
     return this.storageService.createLocation(zoneId, body);
+  }
+
+  @Put('locations/:id')
+  @Roles('ADMIN', 'MANAGER')
+  @ApiOperation({ summary: 'Modifier un emplacement' })
+  updateLocation(@Param('id') id: string, @Body() body: { code?: string; label?: string; maxCapacity?: number }) {
+    return this.storageService.updateLocation(id, body);
+  }
+
+  @Delete('locations/:id')
+  @Roles('ADMIN')
+  @ApiOperation({ summary: 'Supprimer un emplacement (soft-delete)' })
+  deleteLocation(@Param('id') id: string) {
+    return this.storageService.deleteLocation(id);
   }
 }

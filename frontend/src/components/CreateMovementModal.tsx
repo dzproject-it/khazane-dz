@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { X } from 'lucide-react';
+import { X, ScanLine } from 'lucide-react';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { useI18n } from '../contexts/I18nContext';
 import type { Product, MovementType, Site, Supplier, Client } from '../types';
+import { BarcodeScanner } from './BarcodeScanner';
 
 interface Props {
   open: boolean;
@@ -32,6 +33,7 @@ export function CreateMovementModal({ open, onClose, defaultType = 'IN' }: Props
     supplierId: '',
     clientId: '',
   });
+  const [scannerOpen, setScannerOpen] = useState(false);
 
   useEffect(() => {
     if (open) setForm((f) => ({ ...f, type: defaultType }));
@@ -114,6 +116,19 @@ export function CreateMovementModal({ open, onClose, defaultType = 'IN' }: Props
     mutation.mutate(payload);
   }
 
+  function handleBarcodeScan(code: string) {
+    const match = products?.data?.find(
+      (p) => p.barcode === code || p.sku === code
+    );
+    if (match) {
+      setForm((f) => ({ ...f, productId: match.id }));
+      toast.success(`${t.scanner.productFound}: ${match.name}`);
+    } else {
+      toast.error(`${t.scanner.productNotFound}: ${code}`);
+    }
+    setScannerOpen(false);
+  }
+
   const needsSource = form.type === 'OUT' || form.type === 'TRANSFER';
   const needsDest = form.type === 'IN' || form.type === 'TRANSFER' || form.type === 'ADJUSTMENT';
 
@@ -152,21 +167,38 @@ export function CreateMovementModal({ open, onClose, defaultType = 'IN' }: Props
             </div>
           </div>
 
-          {/* Product */}
+          {/* Product + Scan */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">{t.createMovement.product} *</label>
-            <select
-              required
-              value={form.productId}
-              onChange={(e) => setForm((f) => ({ ...f, productId: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
-            >
-              <option value="">{t.createMovement.selectOption}</option>
-              {products?.data?.map((p) => (
-                <option key={p.id} value={p.id}>{p.sku} — {p.name}</option>
-              ))}
-            </select>
+            <div className="flex gap-2">
+              <select
+                required
+                value={form.productId}
+                onChange={(e) => setForm((f) => ({ ...f, productId: e.target.value }))}
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+              >
+                <option value="">{t.createMovement.selectOption}</option>
+                {products?.data?.map((p) => (
+                  <option key={p.id} value={p.id}>{p.sku} — {p.name}</option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => setScannerOpen(true)}
+                title={t.scanner.scanButton}
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium bg-primary-50 text-primary-700 border border-primary-200 rounded-lg hover:bg-primary-100 transition-colors"
+              >
+                <ScanLine className="w-4 h-4" />
+                <span className="hidden sm:inline">{t.scanner.scanButton}</span>
+              </button>
+            </div>
           </div>
+
+          <BarcodeScanner
+            open={scannerOpen}
+            onClose={() => setScannerOpen(false)}
+            onScan={handleBarcodeScan}
+          />
 
           {/* Locations */}
           <div className="grid grid-cols-2 gap-4">

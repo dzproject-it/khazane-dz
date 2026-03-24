@@ -31,9 +31,9 @@ export function SuppliersPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h2 className="text-2xl font-bold text-gray-900">{t.suppliers.title}</h2>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => { window.location.href = `${api.defaults.baseURL}/export/suppliers`; }}
             className="flex items-center gap-2 px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
@@ -63,7 +63,8 @@ export function SuppliersPage() {
 
       {/* Suppliers table */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm min-w-[900px]">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="text-left px-4 py-3 font-medium text-gray-600">{t.suppliers.code}</th>
@@ -167,6 +168,7 @@ export function SuppliersPage() {
             )}
           </tbody>
         </table>
+        </div>
 
         {/* Pagination */}
         {data && data.total > 20 && (

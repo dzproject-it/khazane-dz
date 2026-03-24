@@ -93,7 +93,8 @@ export function DashboardPage() {
           <h3 className="text-lg font-semibold text-gray-900">{t.dashboard.lastMovements}</h3>
         </div>
         {movementsData?.data?.length ? (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[600px]">
             <thead className="bg-gray-50 border-y border-gray-200">
               <tr>
                 <th className="text-left px-4 py-2.5 font-medium text-gray-600">{t.movements.ref}</th>
@@ -119,6 +120,7 @@ export function DashboardPage() {
               ))}
             </tbody>
           </table>
+          </div>
         ) : (
           <p className="px-6 pb-6 text-gray-500 text-sm">{t.dashboard.noMovements}</p>
         )}

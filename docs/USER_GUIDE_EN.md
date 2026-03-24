@@ -12,10 +12,13 @@
 4. [Stock Movements](#4-stock-movements)
 5. [Alerts](#5-alerts)
 6. [Storage (Sites / Zones / Locations)](#6-storage-sites--zones--locations)
-7. [Global Search](#7-global-search)
-8. [Settings](#8-settings)
-9. [Roles and Permissions](#9-roles-and-permissions)
-10. [Keyboard Shortcuts](#10-keyboard-shortcuts)
+7. [Suppliers](#7-suppliers)
+8. [Clients](#8-clients)
+9. [Global Search](#9-global-search)
+10. [Settings](#10-settings)
+11. [User Management](#11-user-management)
+12. [Roles and Permissions](#12-roles-and-permissions)
+13. [Keyboard Shortcuts](#13-keyboard-shortcuts)
 
 ---
 
@@ -102,8 +105,8 @@ Accessible via the sidebar menu **Products**.
 |--------------------|------------------------------------|:--------:|
 | **Name**            | Product name                      | ✅       |
 | **SKU**             | Unique Stock Keeping Unit code    | ✅       |
-| **Category**        | Product category                  | ✅       |
-| **Unit of Measure** | kg, liter, piece, etc.            | ✅       |
+| **Category**        | Product category                  | ❌       |
+| **Unit of Measure** | unit, kg, g, L, mL, m, m², m³, carton, pallet, lot | ✅ |
 | **Barcode**         | EAN/UPC barcode                   | ❌       |
 
 3. Click **Create**
@@ -149,8 +152,9 @@ Accessible via the sidebar menu **Movements**.
 | **Quantity**             | Number of units                     | ✅        |
 | **Source Location**      | Where stock comes from (exit/transfer) | Depends |
 | **Destination Location** | Where stock goes (entry/transfer)   | Depends   |
-| **Reference**            | Order number, receipt, etc.         | ❌        |
-| **Notes**                | Free-text comment                   | ❌        |
+| **Supplier**              | Supplier (if type is Entry)         | ❌       |
+| **Client**                | Client (if type is Exit)            | ❌       |
+| **Notes**                | Free-text comment                   | ❌       |
 
 3. Click **Validate**
 4. Stock is updated automatically
@@ -159,7 +163,21 @@ Accessible via the sidebar menu **Movements**.
 ### Viewing History
 
 - The list displays all movements paginated (20 per page)
-- Each movement shows: reference, type (colored badge), product, quantity, date
+- Each movement shows: reference, type (colored badge), product, supplier, client, quantity, operator, date
+
+### Stock Exit Voucher (Printable)
+
+A printable exit voucher can be generated from the Movements page:
+
+1. Click the **Exit Voucher** button at the top of the page
+2. A formatted document is displayed with:
+   - Auto-generated voucher number (`BS-YYYYMMDD-HHMM`)
+   - Table of latest **Exit** type movements (reference, product, quantity)
+   - Automatic **total quantity** calculation
+   - Signature areas (issued by / received by / manager)
+3. Click **Print** to open the browser's print dialog
+
+> The exit voucher automatically adapts to the active language (RTL for Arabic).
 
 ---
 
@@ -222,7 +240,95 @@ The page displays the list of storage sites with:
 
 ---
 
-## 7. Global Search
+## 7. Suppliers
+
+Accessible via the sidebar menu **Suppliers**.
+
+### Viewing Suppliers
+
+- The list displays all suppliers paginated (20 per page)
+- Use the **search bar** to filter by name, code, or contact
+- Click a supplier to expand details (contact, address, NIF, linked products)
+
+### Creating a Supplier
+
+1. Click the **+ New Supplier** button
+2. Fill in the form:
+
+| Field              | Description                        | Required |
+|-------------------|------------------------------------|:--------:|
+| **Code**           | Unique supplier code               | ✅       |
+| **Name**           | Company name                       | ✅       |
+| **Contact**        | Contact person name                | ❌       |
+| **Email**          | Email address                      | ❌       |
+| **Phone**          | Phone number                       | ❌       |
+| **Address**        | Postal address                     | ❌       |
+| **NIF**            | Tax identification number          | ❌       |
+
+3. Click **Create**
+
+### Exporting Suppliers
+
+1. Click the **Export** button (Download icon)
+2. The file is automatically downloaded
+
+### Deleting a Supplier
+
+- Click the **Trash** icon in the supplier's row
+- Confirm the deletion
+
+---
+
+## 8. Clients
+
+Accessible via the sidebar menu **Clients**.
+
+### Viewing Clients
+
+- The list displays all clients paginated (20 per page)
+- Use the **search bar** to filter by name, code, or contact
+- Click a client to expand details (type, contact, address, NIF, movement count)
+
+### Client Types
+
+| Type              | Badge  | Description                |
+|------------------|--------|----------------------------|
+| **COMPANY**       | Blue   | Company / Corporation      |
+| **INDIVIDUAL**    | Purple | Individual person          |
+| **GOVERNMENT**    | Amber  | Government body            |
+| **OTHER**         | Gray   | Other                      |
+
+### Creating a Client
+
+1. Click the **+ New Client** button
+2. Fill in the form:
+
+| Field              | Description                        | Required |
+|-------------------|------------------------------------|:--------:|
+| **Code**           | Unique client code                 | ✅       |
+| **Name**           | Name or company name               | ✅       |
+| **Type**           | COMPANY / INDIVIDUAL / GOVERNMENT / OTHER | ✅ |
+| **Contact**        | Contact person name                | ❌       |
+| **Email**          | Email address                      | ❌       |
+| **Phone**          | Phone number                       | ❌       |
+| **Address**        | Postal address                     | ❌       |
+| **NIF**            | Tax identification number          | ❌       |
+
+3. Click **Create**
+
+### Exporting Clients
+
+1. Click the **Export** button (Download icon)
+2. The file is automatically downloaded
+
+### Deleting a Client
+
+- Click the **Trash** icon in the client's row
+- Confirm the deletion
+
+---
+
+## 9. Global Search
 
 ### Accessing the Search
 
@@ -242,6 +348,17 @@ The page displays the list of storage sites with:
 | **Movements**   | ↔️     | Reference, type, associated product      |
 | **Locations**   | 📍     | Label, code, parent zone and site        |
 
+### Voice Search 🎤
+
+If your browser supports voice recognition (Web Speech API):
+
+1. A **microphone** button (🎤) appears to the right of the search bar
+2. Click it to start listening (the button pulses red)
+3. Speak clearly — the recognized text is automatically entered in the search bar
+4. Click again to stop listening
+
+> Compatible with Chrome, Edge, and Chromium-based browsers.
+
 ### Navigating Results
 
 - Use the **↑** and **↓** arrow keys to navigate
@@ -250,7 +367,7 @@ The page displays the list of storage sites with:
 
 ---
 
-## 8. Settings
+## 10. Settings
 
 Accessible via the sidebar menu **Settings**. The page contains 5 panels.
 
@@ -263,7 +380,7 @@ Customize the application's look and feel:
 | **Primary Color**      | 10 predefined colors + custom hue slider           |
 | **Sidebar Mode**       | Light or dark                                       |
 | **Application Name**   | Replace "Khazane-DZ" with your brand               |
-| **Logo URL**           | URL to your custom logo                            |
+| **Logo**               | Upload an image file (PNG, JPG, SVG or WebP — max 2 MB) |
 
 Changes are applied immediately and saved in the browser (localStorage).
 
@@ -281,15 +398,7 @@ Selecting Arabic automatically switches the interface to **right-to-left** (RTL)
 
 ### User Management
 
-- **View** the list of users with their role and email
-- Each user displays a colored badge based on their role:
-
-| Role         | Badge  |
-|-------------|--------|
-| ADMIN        | Red    |
-| MANAGER      | Blue   |
-| OPERATOR     | Green  |
-| VIEWER       | Gray   |
+The **Manage Users** button redirects to the dedicated `/users` page (see [Section 11 — User Management](#11-user-management)).
 
 ### Custom Fields
 
@@ -310,7 +419,10 @@ Configure alert thresholds to be notified when stock is low:
 
 1. Click **+ Add Threshold**
 2. Select the **product**
-3. Set the **minimum quantity**
+3. Set the 3 thresholds:
+   - **Minimum stock** — quantity below which an alert is triggered
+   - **Safety stock** — additional safety margin
+   - **Reorder point** — quantity at which a replenishment order is recommended
 4. Click **Create**
 
 When a product's stock falls below the threshold, an alert is automatically triggered (visible in the **Alerts** page).
@@ -328,22 +440,104 @@ Categories support unlimited nesting (categories and subcategories).
 
 ---
 
-## 9. Roles and Permissions
+## 11. User Management
 
-The application uses a Role-Based Access Control (RBAC) system with 4 levels:
+Accessible via the sidebar menu **Users** (visible only for ADMIN and MANAGER roles).
+
+### Viewing Users
+
+The page displays a list of all users with:
+- **Avatar** (colored initials)
+- **Full name** and email address
+- **Role** (colored badge: red ADMIN, blue MANAGER, green OPERATOR, gray VIEWER)
+- **Status** (active / inactive)
+- **Creation date**
+
+### Creating a User (ADMIN only)
+
+1. Click the **+ New User** button
+2. Fill in the form:
+
+| Field              | Description                        | Required |
+|-------------------|------------------------------------|:--------:|
+| **Full Name**      | First and last name               | ✅       |
+| **Email**          | Unique email address              | ✅       |
+| **Password**       | Minimum 6 characters              | ✅       |
+| **Role**           | ADMIN / MANAGER / OPERATOR / VIEWER | ✅     |
+
+3. Click **Create**
+4. The password is automatically hashed (bcrypt) before storage
+
+### Editing a User (ADMIN only)
+
+1. Click the **Pencil** icon in the user's row
+2. Modify the desired fields (name, email, role)
+3. The password field is **optional** — leave blank to keep the existing one
+4. Click **Save**
+
+### Activating / Deactivating a User (ADMIN only)
+
+- Click the **toggle** button in the Status column
+- A deactivated user can no longer log in (verified by the JWT strategy)
+
+### Deleting a User (ADMIN only)
+
+- Click the **Trash** icon in the user's row
+- Confirm the deletion
+- The currently logged-in administrator cannot delete themselves
+
+### Role Legend
+
+At the bottom of the page, 4 cards describe the responsibilities of each role:
+
+| Role         | Color  | Scope                                              |
+|-------------|--------|----------------------------------------------------|
+| **ADMIN**    | Red    | Full access, user management, audit, delete rights |
+| **MANAGER**  | Blue   | Products, movements, suppliers, clients management |
+| **OPERATOR** | Green  | Stock movement creation only                       |
+| **VIEWER**   | Gray   | Read-only access                                   |
+
+---
+
+## 12. Roles and Permissions
+
+The application uses a Role-Based Access Control (RBAC) system with 4 levels.
+
+### Overview
 
 | Role         | Description                                     | Access                                   |
 |-------------|--------------------------------------------------|------------------------------------------|
-| **ADMIN**    | Full administrator                              | Full access, settings, user management   |
-| **MANAGER**  | Site manager                                    | Products, movements, alerts management   |
-| **OPERATOR** | Stock operator                                  | Movement creation, read access           |
+| **ADMIN**    | Full administrator                              | Full access, settings, users, audit      |
+| **MANAGER**  | Site manager                                    | Products, movements, alerts, suppliers, clients |
+| **OPERATOR** | Stock operator                                  | Movement creation only                   |
 | **VIEWER**   | Read-only                                       | Read-only access to all pages            |
+
+### Detailed Permission Matrix by Module
+
+| Module              | View              | Create            | Edit              | Delete            |
+|--------------------|-------------------|-------------------|-------------------|-------------------|
+| **Products**        | All authenticated | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Categories**      | All authenticated | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Movements**       | All authenticated | ADMIN, MANAGER, OPERATOR | —          | —                 |
+| **Storage (Sites)** | All authenticated | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Alerts**          | All authenticated | —                 | ADMIN, MANAGER    | —                 |
+| **Thresholds**      | All authenticated | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN, MANAGER    |
+| **Suppliers**       | All authenticated | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Clients**         | All authenticated | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Users**           | ADMIN, MANAGER    | ADMIN             | ADMIN             | ADMIN             |
+| **Custom Fields**   | All authenticated | ADMIN             | ADMIN             | ADMIN             |
+| **Audit (logs)**    | ADMIN             | —                 | —                 | —                 |
+| **Import/Export**   | —                 | ADMIN, MANAGER    | —                 | —                 |
+| **Search**          | All authenticated | —                 | —                 | —                 |
+| **Stock Levels**    | All authenticated | —                 | —                 | —                 |
+
+> **All authenticated** = ADMIN + MANAGER + OPERATOR + VIEWER (any logged-in user).
 
 Users are assigned to one or more storage sites, limiting their scope of action.
 
 ---
 
-## 10. Keyboard Shortcuts
+## 13. Keyboard Shortcuts
 
 | Shortcut      | Action                        |
 |--------------|-------------------------------|
@@ -364,9 +558,12 @@ The sidebar menu provides access to all sections:
 |------|------------|--------------------------------------|
 | 📊   | Dashboard   | Activity summary view               |
 | 📦   | Products    | Product catalog management          |
+| 🏢   | Storage     | Sites, zones, locations             |
 | ↔️    | Movements   | Movement history and creation       |
 | ⚠️    | Alerts      | Stock threshold alerts              |
-| 🏢   | Storage     | Sites, zones, locations             |
+| 🚚   | Suppliers   | Supplier management                 |
+| 👥   | Clients     | Client management                   |
+| 🛡️   | Users       | User management (ADMIN/MANAGER)     |
 | ⚙️    | Settings    | Application configuration           |
 
 ### Top Navigation Bar

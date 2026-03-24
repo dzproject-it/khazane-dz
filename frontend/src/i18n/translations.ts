@@ -16,6 +16,8 @@ export interface Translations {
     alerts: string;
     suppliers: string;
     clients: string;
+    users: string;
+    license: string;
     settings: string;
     allSites: string;
     logout: string;
@@ -153,6 +155,48 @@ export interface Translations {
     deleteError: string;
     confirm: string;
     zones: string;
+    // Zone fields
+    viewZones: string;
+    newZone: string;
+    noZones: string;
+    createZone: string;
+    editZone: string;
+    deleteZone: string;
+    zoneName: string;
+    zoneCode: string;
+    zoneType: string;
+    typeAisle: string;
+    typeShelf: string;
+    typeArea: string;
+    typeZoneOther: string;
+    zoneSuccess: string;
+    zoneError: string;
+    zoneUpdateSuccess: string;
+    zoneUpdateError: string;
+    zoneDeleteSuccess: string;
+    zoneDeleteError: string;
+    zoneDeleteConfirm: string;
+    locations: string;
+    // Location fields
+    viewLocations: string;
+    newLocation: string;
+    noLocations: string;
+    createLocation: string;
+    editLocation: string;
+    deleteLocation: string;
+    locationCode: string;
+    locationLabel: string;
+    locationCapacity: string;
+    locationSuccess: string;
+    locationError: string;
+    locationUpdateSuccess: string;
+    locationUpdateError: string;
+    locationDeleteSuccess: string;
+    locationDeleteError: string;
+    locationDeleteConfirm: string;
+    // Breadcrumb
+    backToSites: string;
+    backToZones: string;
   };
   // ─── Create Product Modal
   createProduct: {
@@ -307,6 +351,17 @@ export interface Translations {
     voiceDenied: string;
     voiceNoSpeech: string;
   };
+  // ─── Barcode Scanner
+  scanner: {
+    title: string;
+    instructions: string;
+    scanButton: string;
+    cancel: string;
+    noCamera: string;
+    permissionDenied: string;
+    productFound: string;
+    productNotFound: string;
+  };
 }
 
 export const translations: Record<Locale, Translations> = {
@@ -320,6 +375,8 @@ export const translations: Record<Locale, Translations> = {
       alerts: 'Alertes',
       suppliers: 'Fournisseurs',
       clients: 'Clients',
+      users: 'Utilisateurs',
+      license: 'Licence',
       settings: 'Paramètres',
       allSites: 'Tous les sites',
       logout: 'Déconnexion',
@@ -425,7 +482,7 @@ export const translations: Record<Locale, Translations> = {
     },
     storage: {
       title: 'Hiérarchie de stockage',
-      newSite: '+ Nouveau site',
+      newSite: 'Nouveau site',
       loading: 'Chargement...',
       noSites: 'Aucun site configuré. Créez votre premier site.',
       createSite: 'Nouveau site',
@@ -450,6 +507,48 @@ export const translations: Record<Locale, Translations> = {
       deleteError: 'Erreur lors de la suppression',
       confirm: 'Confirmer',
       zones: 'zones',
+      // Zone
+      viewZones: 'Voir les zones',
+      newZone: 'Nouvelle zone',
+      noZones: 'Aucune zone. Créez votre première zone.',
+      editZone: 'Modifier la zone',
+      deleteZone: 'Supprimer la zone',
+      zoneName: 'Nom de la zone',
+      zoneCode: 'Code',
+      zoneType: 'Type',
+      typeAisle: 'Allée',
+      typeShelf: 'Étagère',
+      typeArea: 'Zone',
+      typeZoneOther: 'Autre',
+      createZone: 'Créer la zone',
+      zoneSuccess: 'Zone créée avec succès',
+      zoneError: 'Erreur lors de la création de la zone',
+      zoneUpdateSuccess: 'Zone modifiée avec succès',
+      zoneUpdateError: 'Erreur lors de la modification',
+      zoneDeleteSuccess: 'Zone supprimée avec succès',
+      zoneDeleteError: 'Erreur lors de la suppression',
+      zoneDeleteConfirm: 'Êtes-vous sûr de vouloir supprimer cette zone ?',
+      locations: 'emplacements',
+      // Location
+      viewLocations: 'Voir les emplacements',
+      newLocation: 'Nouvel emplacement',
+      noLocations: 'Aucun emplacement. Créez votre premier emplacement.',
+      createLocation: 'Nouvel emplacement',
+      editLocation: 'Modifier l\'emplacement',
+      deleteLocation: 'Supprimer l\'emplacement',
+      locationCode: 'Code',
+      locationLabel: 'Libellé',
+      locationCapacity: 'Capacité max',
+      locationSuccess: 'Emplacement créé avec succès',
+      locationError: 'Erreur lors de la création',
+      locationUpdateSuccess: 'Emplacement modifié avec succès',
+      locationUpdateError: 'Erreur lors de la modification',
+      locationDeleteSuccess: 'Emplacement supprimé avec succès',
+      locationDeleteError: 'Erreur lors de la suppression',
+      locationDeleteConfirm: 'Êtes-vous sûr de vouloir supprimer cet emplacement ?',
+      // Breadcrumb
+      backToSites: 'Retour aux sites',
+      backToZones: 'Retour aux zones',
     },
     createProduct: {
       title: 'Nouveau produit',
@@ -597,6 +696,16 @@ export const translations: Record<Locale, Translations> = {
       voiceDenied: 'Accès au micro refusé',
       voiceNoSpeech: 'Aucune voix détectée, réessayez',
     },
+    scanner: {
+      title: 'Scanner un code',
+      instructions: 'Placez le code-barres ou QR code devant la caméra.',
+      scanButton: 'Scanner',
+      cancel: 'Annuler',
+      noCamera: 'Aucune caméra détectée sur cet appareil.',
+      permissionDenied: 'Accès à la caméra refusé. Veuillez autoriser l\'accès dans les paramètres du navigateur.',
+      productFound: 'Produit trouvé',
+      productNotFound: 'Aucun produit ne correspond au code',
+    },
   },
 
   // ═══════════════ ENGLISH ═══════════════
@@ -609,6 +718,8 @@ export const translations: Record<Locale, Translations> = {
       alerts: 'Alerts',
       suppliers: 'Suppliers',
       clients: 'Clients',
+      users: 'Users',
+      license: 'License',
       settings: 'Settings',
       allSites: 'All sites',
       logout: 'Log out',
@@ -714,7 +825,7 @@ export const translations: Record<Locale, Translations> = {
     },
     storage: {
       title: 'Storage hierarchy',
-      newSite: '+ New site',
+      newSite: 'New site',
       loading: 'Loading...',
       noSites: 'No sites configured. Create your first site.',
       createSite: 'New site',
@@ -739,6 +850,48 @@ export const translations: Record<Locale, Translations> = {
       deleteError: 'Error deleting site',
       confirm: 'Confirm',
       zones: 'zones',
+      // Zone
+      viewZones: 'View zones',
+      newZone: 'New zone',
+      noZones: 'No zones. Create your first zone.',
+      createZone: 'Create zone',
+      editZone: 'Edit zone',
+      deleteZone: 'Delete zone',
+      zoneName: 'Zone name',
+      zoneCode: 'Code',
+      zoneType: 'Type',
+      typeAisle: 'Aisle',
+      typeShelf: 'Shelf',
+      typeArea: 'Area',
+      typeZoneOther: 'Other',
+      zoneSuccess: 'Zone created successfully',
+      zoneError: 'Error creating zone',
+      zoneUpdateSuccess: 'Zone updated successfully',
+      zoneUpdateError: 'Error updating zone',
+      zoneDeleteSuccess: 'Zone deleted successfully',
+      zoneDeleteError: 'Error deleting zone',
+      zoneDeleteConfirm: 'Are you sure you want to delete this zone?',
+      locations: 'locations',
+      // Location
+      viewLocations: 'View locations',
+      newLocation: 'New location',
+      noLocations: 'No locations. Create your first location.',
+      createLocation: 'New location',
+      editLocation: 'Edit location',
+      deleteLocation: 'Delete location',
+      locationCode: 'Code',
+      locationLabel: 'Label',
+      locationCapacity: 'Max capacity',
+      locationSuccess: 'Location created successfully',
+      locationError: 'Error creating location',
+      locationUpdateSuccess: 'Location updated successfully',
+      locationUpdateError: 'Error updating location',
+      locationDeleteSuccess: 'Location deleted successfully',
+      locationDeleteError: 'Error deleting location',
+      locationDeleteConfirm: 'Are you sure you want to delete this location?',
+      // Breadcrumb
+      backToSites: 'Back to sites',
+      backToZones: 'Back to zones',
     },
     createProduct: {
       title: 'New product',
@@ -886,6 +1039,16 @@ export const translations: Record<Locale, Translations> = {
       voiceDenied: 'Microphone access denied',
       voiceNoSpeech: 'No speech detected, try again',
     },
+    scanner: {
+      title: 'Scan a code',
+      instructions: 'Place the barcode or QR code in front of the camera.',
+      scanButton: 'Scan',
+      cancel: 'Cancel',
+      noCamera: 'No camera detected on this device.',
+      permissionDenied: 'Camera access denied. Please allow access in your browser settings.',
+      productFound: 'Product found',
+      productNotFound: 'No product matches the code',
+    },
   },
 
   // ═══════════════ العربية ═══════════════
@@ -898,6 +1061,8 @@ export const translations: Record<Locale, Translations> = {
       alerts: 'التنبيهات',
       suppliers: 'الموردون',
       clients: 'العملاء',
+      users: 'المستخدمون',
+      license: 'الترخيص',
       settings: 'الإعدادات',
       allSites: 'جميع المواقع',
       logout: 'تسجيل الخروج',
@@ -1003,7 +1168,7 @@ export const translations: Record<Locale, Translations> = {
     },
     storage: {
       title: 'هيكل التخزين',
-      newSite: '+ موقع جديد',
+      newSite: 'موقع جديد',
       loading: 'جاري التحميل...',
       noSites: 'لا توجد مواقع. أنشئ موقعك الأول.',
       createSite: 'موقع جديد',
@@ -1028,6 +1193,48 @@ export const translations: Record<Locale, Translations> = {
       deleteError: 'خطأ في حذف الموقع',
       confirm: 'تأكيد',
       zones: 'مناطق',
+      // Zone
+      viewZones: 'عرض المناطق',
+      newZone: 'منطقة جديدة',
+      noZones: 'لا توجد مناطق. أنشئ منطقتك الأولى.',
+      createZone: 'إنشاء منطقة',
+      editZone: 'تعديل المنطقة',
+      deleteZone: 'حذف المنطقة',
+      zoneName: 'اسم المنطقة',
+      zoneCode: 'الرمز',
+      zoneType: 'النوع',
+      typeAisle: 'ممر',
+      typeShelf: 'رف',
+      typeArea: 'منطقة',
+      typeZoneOther: 'آخر',
+      zoneSuccess: 'تم إنشاء المنطقة بنجاح',
+      zoneError: 'خطأ في إنشاء المنطقة',
+      zoneUpdateSuccess: 'تم تعديل المنطقة بنجاح',
+      zoneUpdateError: 'خطأ في تعديل المنطقة',
+      zoneDeleteSuccess: 'تم حذف المنطقة بنجاح',
+      zoneDeleteError: 'خطأ في حذف المنطقة',
+      zoneDeleteConfirm: 'هل أنت متأكد من حذف هذه المنطقة؟',
+      locations: 'مواقع',
+      // Location
+      viewLocations: 'عرض المواقع',
+      newLocation: 'موقع جديد',
+      noLocations: 'لا توجد مواقع. أنشئ موقعك الأول.',
+      createLocation: 'موقع جديد',
+      editLocation: 'تعديل الموقع',
+      deleteLocation: 'حذف الموقع',
+      locationCode: 'الرمز',
+      locationLabel: 'التسمية',
+      locationCapacity: 'السعة القصوى',
+      locationSuccess: 'تم إنشاء الموقع بنجاح',
+      locationError: 'خطأ في إنشاء الموقع',
+      locationUpdateSuccess: 'تم تعديل الموقع بنجاح',
+      locationUpdateError: 'خطأ في تعديل الموقع',
+      locationDeleteSuccess: 'تم حذف الموقع بنجاح',
+      locationDeleteError: 'خطأ في حذف الموقع',
+      locationDeleteConfirm: 'هل أنت متأكد من حذف هذا الموقع؟',
+      // Breadcrumb
+      backToSites: 'العودة إلى المواقع',
+      backToZones: 'العودة إلى المناطق',
     },
     createProduct: {
       title: 'منتج جديد',
@@ -1174,6 +1381,16 @@ export const translations: Record<Locale, Translations> = {
       voiceUnsupported: 'البحث الصوتي غير مدعوم في هذا المتصفح',
       voiceDenied: 'تم رفض الوصول إلى الميكروفون',
       voiceNoSpeech: 'لم يتم اكتشاف صوت، حاول مرة أخرى',
+    },
+    scanner: {
+      title: 'مسح الرمز',
+      instructions: 'ضع الباركود أو رمز QR أمام الكاميرا.',
+      scanButton: 'مسح',
+      cancel: 'إلغاء',
+      noCamera: 'لم يتم اكتشاف كاميرا على هذا الجهاز.',
+      permissionDenied: 'تم رفض الوصول إلى الكاميرا. يرجى السماح بالوصول في إعدادات المتصفح.',
+      productFound: 'تم العثور على المنتج',
+      productNotFound: 'لا يوجد منتج يطابق الرمز',
     },
   },
 };

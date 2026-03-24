@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Warehouse, Pencil, Trash2, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Warehouse, Pencil, Trash2, Plus, LayoutGrid } from 'lucide-react';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { useI18n } from '../contexts/I18nContext';
@@ -9,6 +10,7 @@ import type { Site } from '../types';
 
 export function StoragePage() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { t } = useI18n();
   const [showForm, setShowForm] = useState(false);
   const [editingSite, setEditingSite] = useState<Site | null>(null);
@@ -65,7 +67,7 @@ export function StoragePage() {
       ) : (
         <div className="grid gap-4">
           {sites.map((site) => (
-            <div key={site.id} className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-sm transition-shadow">
+            <div key={site.id} className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-primary-200 transition-all cursor-pointer" onClick={() => navigate(`/storage/${site.id}`)}>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
                   <Warehouse className="w-5 h-5" />
@@ -80,20 +82,24 @@ export function StoragePage() {
                 </div>
                 <div className="flex items-center gap-1 flex-shrink-0">
                   <button
-                    onClick={() => openEdit(site)}
+                    onClick={(e) => { e.stopPropagation(); openEdit(site); }}
                     className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                     title={t.storage.editSite}
                   >
                     <Pencil size={16} />
                   </button>
                   <button
-                    onClick={() => setDeletingSite(site)}
+                    onClick={(e) => { e.stopPropagation(); setDeletingSite(site); }}
                     className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     title={t.storage.deleteSite}
                   >
                     <Trash2 size={16} />
                   </button>
                 </div>
+              </div>
+              <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+                <span className="text-sm text-primary-600 font-medium">{t.storage.viewZones} →</span>
+                <LayoutGrid size={16} className="text-primary-400" />
               </div>
             </div>
           ))}

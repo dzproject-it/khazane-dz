@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Plus, Trash2, ChevronRight, X, Palette, Upload } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { useTheme } from '../contexts/ThemeContext';
 import { useI18n } from '../contexts/I18nContext';
 import { localeNames, type Locale } from '../i18n/translations';
-import type { Category, CustomFieldDef, User } from '../types';
+import type { Category, CustomFieldDef } from '../types';
 
 /* ── Petit modal générique ── */
 function Modal({ open, onClose, title, children }: { open: boolean; onClose: () => void; title: string; children: React.ReactNode }) {
@@ -22,41 +23,6 @@ function Modal({ open, onClose, title, children }: { open: boolean; onClose: () 
         {children}
       </div>
     </div>
-  );
-}
-
-/* ══════════════ UTILISATEURS ══════════════ */
-function UsersPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { data: users, isLoading } = useQuery<User[]>({
-    queryKey: ['users'],
-    queryFn: () => api.get('/users').then((r) => r.data),
-    enabled: open,
-  });
-
-  const roleBadge: Record<string, string> = {
-    ADMIN: 'bg-red-100 text-red-700',
-    MANAGER: 'bg-blue-100 text-blue-700',
-    OPERATOR: 'bg-green-100 text-green-700',
-    VIEWER: 'bg-gray-100 text-gray-600',
-  };
-
-  return (
-    <Modal open={open} onClose={onClose} title="Utilisateurs">
-      {isLoading ? <p className="text-sm text-gray-500">Chargement...</p> : (
-        <div className="space-y-2">
-          {users?.map((u) => (
-            <div key={u.id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
-              <div>
-                <p className="font-medium text-sm">{u.name}</p>
-                <p className="text-xs text-gray-500">{u.email}</p>
-              </div>
-              <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${roleBadge[u.role] || 'bg-gray-100'}`}>{u.role}</span>
-            </div>
-          ))}
-          {!users?.length && <p className="text-sm text-gray-500">Aucun utilisateur.</p>}
-        </div>
-      )}
-    </Modal>
   );
 }
 
@@ -426,6 +392,7 @@ function AppearancePanel({ open, onClose }: { open: boolean; onClose: () => void
 export function SettingsPage() {
   const [panel, setPanel] = useState<'users' | 'fields' | 'thresholds' | 'categories' | 'appearance' | null>(null);
   const { t, locale, setLocale } = useI18n();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -465,7 +432,7 @@ export function SettingsPage() {
         <section className="bg-white rounded-xl border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">{t.settings.users}</h3>
           <p className="text-sm text-gray-500 mb-4">{t.settings.usersDesc}</p>
-          <button onClick={() => setPanel('users')} className="px-4 py-2 text-sm bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+          <button onClick={() => navigate('/users')} className="px-4 py-2 text-sm bg-primary-600 text-white rounded-lg hover:bg-primary-700">
             {t.settings.manageUsersBtn}
           </button>
         </section>
@@ -496,7 +463,6 @@ export function SettingsPage() {
       </div>
 
       <AppearancePanel open={panel === 'appearance'} onClose={() => setPanel(null)} />
-      <UsersPanel open={panel === 'users'} onClose={() => setPanel(null)} />
       <CustomFieldsPanel open={panel === 'fields'} onClose={() => setPanel(null)} />
       <ThresholdsPanel open={panel === 'thresholds'} onClose={() => setPanel(null)} />
       <CategoriesPanel open={panel === 'categories'} onClose={() => setPanel(null)} />

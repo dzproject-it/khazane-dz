@@ -12,10 +12,13 @@
 4. [Mouvements de stock](#4-mouvements-de-stock)
 5. [Alertes](#5-alertes)
 6. [Stockage (Sites / Zones / Emplacements)](#6-stockage-sites--zones--emplacements)
-7. [Recherche globale](#7-recherche-globale)
-8. [Paramètres](#8-paramètres)
-9. [Rôles et permissions](#9-rôles-et-permissions)
-10. [Raccourcis clavier](#10-raccourcis-clavier)
+7. [Fournisseurs](#7-fournisseurs)
+8. [Clients](#8-clients)
+9. [Recherche globale](#9-recherche-globale)
+10. [Paramètres](#10-paramètres)
+11. [Gestion des utilisateurs](#11-gestion-des-utilisateurs)
+12. [Rôles et permissions](#12-rôles-et-permissions)
+13. [Raccourcis clavier](#13-raccourcis-clavier)
 
 ---
 
@@ -102,8 +105,8 @@ Accessible via le menu latéral **Produits**.
 |-------------------|------------------------------------|:-----------:|
 | **Nom**            | Nom du produit                    | ✅          |
 | **SKU**            | Code unique (Stock Keeping Unit)  | ✅          |
-| **Catégorie**      | Catégorie du produit              | ✅          |
-| **Unité de mesure** | kg, litre, pièce, etc.          | ✅          |
+| **Catégorie**      | Catégorie du produit              | ❌          |
+| **Unité de mesure** | unité, kg, g, L, mL, m, m², m³, carton, palette, lot | ✅          |
 | **Code-barres**    | Code-barres EAN/UPC              | ❌          |
 
 3. Cliquer sur **Créer**
@@ -149,7 +152,8 @@ Accessible via le menu latéral **Mouvements**.
 | **Quantité**           | Nombre d'unités                     | ✅          |
 | **Emplacement source** | D'où vient le stock (sortie/transfert) | Selon type |
 | **Emplacement dest.**  | Où va le stock (entrée/transfert)   | Selon type  |
-| **Référence**          | Numéro de bon, commande, etc.      | ❌          |
+| **Fournisseur**        | Fournisseur (si type Entrée)        | ❌          |
+| **Client**             | Client (si type Sortie)             | ❌          |
 | **Notes**              | Commentaire libre                   | ❌          |
 
 3. Cliquer sur **Valider**
@@ -159,7 +163,21 @@ Accessible via le menu latéral **Mouvements**.
 ### Consulter l'historique
 
 - La liste affiche tous les mouvements paginés (20 par page)
-- Chaque mouvement montre : référence, type (badge coloré), produit, quantité, date
+- Chaque mouvement montre : référence, type (badge coloré), produit, fournisseur, client, quantité, opérateur, date
+
+### Bon de sortie (imprimable)
+
+Un bon de sortie au format imprimable peut être généré depuis la page Mouvements :
+
+1. Cliquer sur le bouton **Bon de sortie** en haut de page
+2. Un document formaté s'affiche avec :
+   - Numéro de bon auto-généré (`BS-YYYYMMDD-HHMM`)
+   - Tableau des derniers mouvements de type **Sortie** (référence, produit, quantité)
+   - Calcul automatique du **total des quantités**
+   - Zones de signatures (remis par / reçu par / responsable)
+3. Cliquer sur **Imprimer** pour ouvrir la boîte de dialogue d'impression du navigateur
+
+> Le bon de sortie est automatiquement adapté à la langue active (RTL pour l'arabe).
 
 ---
 
@@ -222,7 +240,95 @@ La page affiche la liste des sites de stockage avec :
 
 ---
 
-## 7. Recherche globale
+## 7. Fournisseurs
+
+Accessible via le menu latéral **Fournisseurs**.
+
+### Consulter les fournisseurs
+
+- La liste affiche tous les fournisseurs paginés (20 par page)
+- Utilisez la **barre de recherche** pour filtrer par nom, code ou contact
+- Cliquez sur un fournisseur pour afficher ses détails (contact, adresse, NIF, produits liés)
+
+### Créer un fournisseur
+
+1. Cliquer sur le bouton **+ Nouveau fournisseur**
+2. Remplir le formulaire :
+
+| Champ              | Description                        | Obligatoire |
+|-------------------|------------------------------------|:-----------:|
+| **Code**           | Code unique du fournisseur         | ✅          |
+| **Nom**            | Raison sociale                     | ✅          |
+| **Contact**        | Nom du contact                     | ❌          |
+| **Email**          | Adresse email                      | ❌          |
+| **Téléphone**      | Numéro de téléphone                | ❌          |
+| **Adresse**        | Adresse postale                    | ❌          |
+| **NIF**            | Numéro d'identification fiscale    | ❌          |
+
+3. Cliquer sur **Créer**
+
+### Exporter les fournisseurs
+
+1. Cliquer sur le bouton **Exporter** (icône Download)
+2. Le fichier est automatiquement téléchargé
+
+### Supprimer un fournisseur
+
+- Cliquer sur l'icône **Corbeille** dans la ligne du fournisseur
+- Confirmer la suppression
+
+---
+
+## 8. Clients
+
+Accessible via le menu latéral **Clients**.
+
+### Consulter les clients
+
+- La liste affiche tous les clients paginés (20 par page)
+- Utilisez la **barre de recherche** pour filtrer par nom, code ou contact
+- Cliquez sur un client pour afficher ses détails (type, contact, adresse, NIF, nombre de mouvements)
+
+### Types de clients
+
+| Type              | Badge    | Description                  |
+|------------------|----------|------------------------------|
+| **COMPANY**       | Bleu     | Entreprise / Société         |
+| **INDIVIDUAL**    | Violet   | Particulier                  |
+| **GOVERNMENT**    | Ambre    | Organisme gouvernemental     |
+| **OTHER**         | Gris     | Autre                        |
+
+### Créer un client
+
+1. Cliquer sur le bouton **+ Nouveau client**
+2. Remplir le formulaire :
+
+| Champ              | Description                        | Obligatoire |
+|-------------------|------------------------------------|:-----------:|
+| **Code**           | Code unique du client              | ✅          |
+| **Nom**            | Nom ou raison sociale              | ✅          |
+| **Type**           | COMPANY / INDIVIDUAL / GOVERNMENT / OTHER | ✅ |
+| **Contact**        | Nom du contact                     | ❌          |
+| **Email**          | Adresse email                      | ❌          |
+| **Téléphone**      | Numéro de téléphone                | ❌          |
+| **Adresse**        | Adresse postale                    | ❌          |
+| **NIF**            | Numéro d'identification fiscale    | ❌          |
+
+3. Cliquer sur **Créer**
+
+### Exporter les clients
+
+1. Cliquer sur le bouton **Exporter** (icône Download)
+2. Le fichier est automatiquement téléchargé
+
+### Supprimer un client
+
+- Cliquer sur l'icône **Corbeille** dans la ligne du client
+- Confirmer la suppression
+
+---
+
+## 9. Recherche globale
 
 ### Accéder à la recherche
 
@@ -242,6 +348,17 @@ La page affiche la liste des sites de stockage avec :
 | **Mouvements**  | ↔️       | Référence, type, produit associé         |
 | **Emplacements**| 📍       | Label, code, zone et site parent         |
 
+### Recherche vocale 🎤
+
+Si votre navigateur supporte la reconnaissance vocale (Web Speech API) :
+
+1. Un bouton **micro** (🎤) apparaît à droite de la barre de recherche
+2. Cliquer dessus active l'écoute (le bouton pulse en rouge)
+3. Parler clairement — le texte reconnu est automatiquement saisi dans la barre de recherche
+4. Cliquer à nouveau pour arrêter l'écoute
+
+> Compatible avec Chrome, Edge et les navigateurs basés sur Chromium.
+
 ### Navigation dans les résultats
 
 - Utilisez les flèches **↑** et **↓** du clavier pour naviguer
@@ -250,7 +367,7 @@ La page affiche la liste des sites de stockage avec :
 
 ---
 
-## 8. Paramètres
+## 10. Paramètres
 
 Accessible via le menu latéral **Paramètres**. La page contient 5 panneaux.
 
@@ -263,7 +380,7 @@ Personnalisez l'apparence de l'application :
 | **Couleur principale** | 10 couleurs prédéfinies + curseur de teinte libre  |
 | **Mode sidebar**      | Clair ou sombre                                     |
 | **Nom de l'application** | Remplacer « Khazane-DZ » par votre marque       |
-| **URL du logo**       | URL vers votre logo personnalisé                    |
+| **Logo**              | Uploader un fichier image (PNG, JPG, SVG ou WebP — max 2 Mo) |
 
 Les modifications sont appliquées immédiatement et sauvegardées dans le navigateur (localStorage).
 
@@ -281,15 +398,7 @@ La sélection de l'arabe bascule automatiquement l'interface en mode **droite-à
 
 ### Gestion des utilisateurs
 
-- **Consulter** la liste des utilisateurs avec leur rôle et email
-- Chaque utilisateur affiche un badge de couleur selon son rôle :
-
-| Rôle         | Badge    |
-|-------------|----------|
-| ADMIN        | Rouge    |
-| MANAGER      | Bleu     |
-| OPERATOR     | Vert     |
-| VIEWER       | Gris     |
+Le bouton **Gérer les utilisateurs** redirige vers la page dédiée `/users` (voir [Section 11 — Gestion des utilisateurs](#11-gestion-des-utilisateurs)).
 
 ### Champs personnalisés
 
@@ -310,7 +419,10 @@ Configurez des seuils d'alerte pour être prévenu quand le stock est bas :
 
 1. Cliquer sur **+ Ajouter un seuil**
 2. Sélectionner le **produit**
-3. Définir la **quantité minimale**
+3. Définir les 3 seuils :
+   - **Stock minimum** — quantité en dessous de laquelle une alerte est déclenchée
+   - **Stock de sécurité** — marge de sécurité supplémentaire
+   - **Point de commande** — quantité à partir de laquelle une commande de réapprovisionnement est recommandée
 4. Cliquer sur **Créer**
 
 Quand le stock d'un produit passe sous le seuil, une alerte est automatiquement déclenchée (visible dans la page **Alertes**).
@@ -328,22 +440,104 @@ Les catégories supportent une hiérarchie illimitée (catégories et sous-caté
 
 ---
 
-## 9. Rôles et permissions
+## 11. Gestion des utilisateurs
 
-L'application utilise un système de contrôle d'accès basé sur les rôles (RBAC) avec 4 niveaux :
+Accessible via le menu latéral **Utilisateurs** (visible uniquement pour les rôles ADMIN et MANAGER).
+
+### Consulter les utilisateurs
+
+La page affiche la liste de tous les utilisateurs avec :
+- **Avatar** (initiales colorées)
+- **Nom complet** et adresse email
+- **Rôle** (badge coloré : rouge ADMIN, bleu MANAGER, vert OPERATOR, gris VIEWER)
+- **Statut** (actif / inactif)
+- **Date de création**
+
+### Créer un utilisateur (ADMIN uniquement)
+
+1. Cliquer sur le bouton **+ Nouvel utilisateur**
+2. Remplir le formulaire :
+
+| Champ              | Description                        | Obligatoire |
+|-------------------|------------------------------------|:-----------:|
+| **Nom complet**    | Nom et prénom                      | ✅          |
+| **Email**          | Adresse email unique               | ✅          |
+| **Mot de passe**   | Minimum 6 caractères               | ✅          |
+| **Rôle**           | ADMIN / MANAGER / OPERATOR / VIEWER | ✅         |
+
+3. Cliquer sur **Créer**
+4. Le mot de passe est automatiquement hashé (bcrypt) avant stockage
+
+### Modifier un utilisateur (ADMIN uniquement)
+
+1. Cliquer sur l'icône **Crayon** dans la ligne de l'utilisateur
+2. Modifier les champs souhaités (nom, email, rôle)
+3. Le champ mot de passe est **optionnel** — laisser vide pour conserver l'ancien
+4. Cliquer sur **Enregistrer**
+
+### Activer / Désactiver un utilisateur (ADMIN uniquement)
+
+- Cliquer sur le bouton **bascule** dans la colonne Statut
+- Un utilisateur désactivé ne peut plus se connecter (vérifié par la stratégie JWT)
+
+### Supprimer un utilisateur (ADMIN uniquement)
+
+- Cliquer sur l'icône **Corbeille** dans la ligne de l'utilisateur
+- Confirmer la suppression
+- L'administrateur connecté ne peut pas se supprimer lui-même
+
+### Légende des rôles
+
+En bas de page, 4 cartes décrivent les responsabilités de chaque rôle :
+
+| Rôle         | Couleur | Périmètre                                         |
+|-------------|---------|----------------------------------------------------|
+| **ADMIN**    | Rouge   | Accès total, gestion utilisateurs, audit, suppression |
+| **MANAGER**  | Bleu    | Gestion produits, mouvements, fournisseurs, clients   |
+| **OPERATOR** | Vert    | Création de mouvements de stock                       |
+| **VIEWER**   | Gris    | Consultation seule (lecture)                           |
+
+---
+
+## 12. Rôles et permissions
+
+L'application utilise un système de contrôle d'accès basé sur les rôles (RBAC) avec 4 niveaux.
+
+### Vue d'ensemble
 
 | Rôle         | Description                                      | Accès                                    |
 |-------------|--------------------------------------------------|------------------------------------------|
-| **ADMIN**    | Administrateur complet                          | Accès total, paramètres, utilisateurs    |
-| **MANAGER**  | Responsable de site                             | Gestion produits, mouvements, alertes    |
-| **OPERATOR** | Opérateur de stock                              | Création de mouvements, consultation     |
+| **ADMIN**    | Administrateur complet                          | Accès total, paramètres, utilisateurs, audit |
+| **MANAGER**  | Responsable de site                             | Gestion produits, mouvements, alertes, fournisseurs, clients |
+| **OPERATOR** | Opérateur de stock                              | Création de mouvements uniquement        |
 | **VIEWER**   | Consultation seule                              | Lecture seule sur toutes les pages       |
+
+### Matrice détaillée des permissions par module
+
+| Module              | Consulter         | Créer             | Modifier          | Supprimer         |
+|--------------------|-------------------|-------------------|-------------------|-------------------|
+| **Produits**        | Tous authentifiés | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Catégories**      | Tous authentifiés | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Mouvements**      | Tous authentifiés | ADMIN, MANAGER, OPERATOR | —          | —                 |
+| **Stockage (Sites)**| Tous authentifiés | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Alertes**         | Tous authentifiés | —                 | ADMIN, MANAGER    | —                 |
+| **Seuils**          | Tous authentifiés | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN, MANAGER    |
+| **Fournisseurs**    | Tous authentifiés | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Clients**         | Tous authentifiés | ADMIN, MANAGER    | ADMIN, MANAGER    | ADMIN             |
+| **Utilisateurs**    | ADMIN, MANAGER    | ADMIN             | ADMIN             | ADMIN             |
+| **Champs perso.**   | Tous authentifiés | ADMIN             | ADMIN             | ADMIN             |
+| **Audit (logs)**    | ADMIN             | —                 | —                 | —                 |
+| **Import/Export**   | —                 | ADMIN, MANAGER    | —                 | —                 |
+| **Recherche**       | Tous authentifiés | —                 | —                 | —                 |
+| **Niveaux de stock**| Tous authentifiés | —                 | —                 | —                 |
+
+> **Tous authentifiés** = ADMIN + MANAGER + OPERATOR + VIEWER (tout utilisateur connecté).
 
 Les utilisateurs sont assignés à un ou plusieurs sites de stockage, limitant leur périmètre d'action.
 
 ---
 
-## 10. Raccourcis clavier
+## 13. Raccourcis clavier
 
 | Raccourci     | Action                    |
 |--------------|---------------------------|
@@ -364,9 +558,12 @@ Le menu latéral permet d'accéder à toutes les sections :
 |-------|---------------|--------------------------------------|
 | 📊    | Tableau de bord | Vue synthétique de l'activité       |
 | 📦    | Produits       | Gestion du catalogue produits       |
+| 🏢    | Stockage       | Sites, zones, emplacements          |
 | ↔️     | Mouvements     | Historique et création de mouvements |
 | ⚠️     | Alertes        | Alertes de seuil de stock           |
-| 🏢    | Stockage       | Sites, zones, emplacements          |
+| 🚚    | Fournisseurs   | Gestion des fournisseurs            |
+| 👥    | Clients        | Gestion des clients                 |
+| 🛡️    | Utilisateurs   | Gestion des utilisateurs (ADMIN/MANAGER) |
 | ⚙️     | Paramètres     | Configuration de l'application      |
 
 ### Barre supérieure

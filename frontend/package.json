@@ -13,6 +13,7 @@
     "@tanstack/react-query": "^5.51.0",
     "@tanstack/react-table": "^8.20.0",
     "axios": "^1.7.5",
+    "html5-qrcode": "^2.3.8",
     "lucide-react": "^0.436.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

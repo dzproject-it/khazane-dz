@@ -35,9 +35,9 @@ export function MovementsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h2 className="text-2xl font-bold text-gray-900">{t.movements.title}</h2>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button onClick={() => setShowVoucher(true)} className="flex items-center gap-1.5 px-4 py-2 text-sm bg-gray-700 text-white rounded-lg hover:bg-gray-800">
             <FileText size={16} />
             {t.movements.exitVoucher}
@@ -49,7 +49,8 @@ export function MovementsPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm min-w-[800px]">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="text-left px-4 py-3 font-medium text-gray-600">{t.movements.ref}</th>
@@ -90,6 +91,7 @@ export function MovementsPage() {
             )}
           </tbody>
         </table>
+        </div>
       </div>
 
       <CreateMovementModal open={showCreate} onClose={() => setShowCreate(false)} defaultType={movementType} />

@@ -7,10 +7,13 @@ import {
   Bell,
   Truck,
   Users,
+  ShieldCheck,
+  KeyRound,
   Settings,
   LogOut,
   Menu,
   X,
+  Search,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -23,6 +26,7 @@ import type { Site, Alert } from '../types';
 
 export function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const { user, logout } = useAuth();
   const { theme } = useTheme();
   const { t } = useI18n();
@@ -48,6 +52,8 @@ export function Layout() {
     { to: '/alerts', label: t.nav.alerts, icon: Bell },
     { to: '/suppliers', label: t.nav.suppliers, icon: Truck },
     { to: '/clients', label: t.nav.clients, icon: Users },
+    ...(user?.role === 'ADMIN' || user?.role === 'MANAGER' ? [{ to: '/users', label: t.nav.users, icon: ShieldCheck }] : []),
+    ...(user?.role === 'ADMIN' ? [{ to: '/licensing', label: t.nav.license, icon: KeyRound }] : []),
     { to: '/settings', label: t.nav.settings, icon: Settings },
   ];
 
@@ -130,6 +136,9 @@ export function Layout() {
           <div className="flex-1 hidden sm:flex justify-center">
             <GlobalSearch />
           </div>
+          <button className="sm:hidden flex-shrink-0 text-gray-500 hover:text-gray-700" onClick={() => setMobileSearchOpen(!mobileSearchOpen)}>
+            <Search className="w-5 h-5" />
+          </button>
           <div className="flex items-center gap-3 flex-shrink-0 ms-auto">
             <NavLink to="/alerts" className="relative text-gray-500 hover:text-gray-700">
               <Bell className="w-5 h-5" />
@@ -141,6 +150,13 @@ export function Layout() {
             </NavLink>
           </div>
         </header>
+
+        {/* Mobile search bar */}
+        {mobileSearchOpen && (
+          <div className="sm:hidden px-4 py-2 bg-white border-b border-gray-200">
+            <GlobalSearch />
+          </div>
+        )}
 
         {/* Page content */}
         <main className="flex-1 p-4 lg:p-8 overflow-auto">
